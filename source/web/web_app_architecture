@@ -1,0 +1,42 @@
+digraph ScalableWebAppArchitecture {
+	rankdir=LR size="8,5"
+	node [color=lightgray shape=box style=filled]
+	User [label="User
+(Client Browser)" color=lightblue shape=ellipse]
+	ALB [label="Application Load Balancer
+(HTTP/HTTPS)" color=orange]
+	ASG [label="Auto Scaling Group" color=gold]
+	"EC2-1" [label="EC2 Instance
+(Web App)" color=lightgreen]
+	"EC2-2" [label="EC2 Instance
+(Web App)" color=lightgreen]
+	RDS [label="Amazon RDS
+(MySQL/PostgreSQL)
+Multi-AZ (Optional)" color=lightpink]
+	CloudWatch [label="Amazon CloudWatch" color=lightcyan]
+	SNS [label="Amazon SNS
+(Email Alerts)" color=lightcyan]
+	IAM [label="IAM Role
+(Access & Monitoring)" color=white]
+	VPC [label="VPC
+(2 Public, 2 Private Subnets)" color=white shape=folder]
+	IGW [label="Internet Gateway" color=white]
+	Route53 [label="Route 53
+(Optional Domain)" color=lightblue]
+	User -> Route53 [label="DNS Request" style=dashed]
+	Route53 -> ALB [label="Alias Record (A)" style=dashed]
+	User -> ALB
+	ALB -> ASG
+	ASG -> "EC2-1"
+	ASG -> "EC2-2"
+	"EC2-1" -> RDS [label="DB Connection"]
+	"EC2-2" -> RDS [label="DB Connection"]
+	"EC2-1" -> CloudWatch
+	"EC2-2" -> CloudWatch
+	CloudWatch -> SNS [label="Alarms / Notifications"]
+	IAM -> "EC2-1"
+	IAM -> "EC2-2"
+	ALB -> VPC [style=dotted]
+	RDS -> VPC [style=dotted]
+	VPC -> IGW
+}
