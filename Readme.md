@@ -42,12 +42,12 @@ A secure, highly available, and auto-scaling web application using:
 - Use **default VPC** or create a new one 
 - **VPC Name**: ScalableAppVPC-vpc
 
-![VPC](../aws-images/VPC.png)
+![VPC](aws-images/VPC.png)
 
 - Public Subnets (2) for EC2 + Private Subnets (2) for RDS.
 - Attach Internet Gateway and configure route tables.
 
-![Subnets](../aws-images/Subnets.png)
+![Subnets](aws-images/Subnets.png)
 
 
 
@@ -57,7 +57,7 @@ A secure, highly available, and auto-scaling web application using:
 - ALB SG: Allow HTTP/HTTPS from anywhere (0.0.0.0/0)
 - RDS SG: Allow DB ports only from EC2 SG
 
-![Security Groups](../aws-images/SecurityGroup.png)
+![Security Groups](aws-images/SecurityGroup.png)
 
 ### 3. **IAM Role for EC2**
 Attach a role with:
@@ -72,7 +72,7 @@ Attach a role with:
 - Instance Type: `t2.micro`
 - Attach IAM Role
 
-![Launch Template](../aws-images/LuanchTemplate.png)
+![Launch Template](aws-images/LuanchTemplate.png)
 
 `user-data`:
 ```bash
@@ -129,7 +129,7 @@ EOF
 - subnets: public subnet-1, public subnet-2 
 - security-groups: ALP-SecurityGroups
 
-![ALB](../aws-images/LoadBalancer.png)
+![ALB](aws-images/LoadBalancer.png)
 
 ### 6. Create Auto Scaling Group (ASG)
 - **ASG Name**: (web-ASG)
@@ -139,7 +139,7 @@ EOF
 - vpc-zone-identifier "subnet-1,subnet-2" 
 - Scale-out policy (CPU >80%)
 
-![ASG](../aws-images/AutoScalingGroups.png)
+![ASG](aws-images/AutoScalingGroups.png)
 
 ### 7. CloudWatch Alarm
 - aws cloudwatch put-metric-alarm 
@@ -147,8 +147,8 @@ EOF
 - metric-name CPUUtilization 
 - threshold 80 
 
-![CloudWatch](../aws-images/Cloudwatch.png)
-![Alarms](../aws-images/SNS.png)
+![CloudWatch](aws-images/Cloudwatch.png)
+![Alarms](aws-images/SNS.png)
 
 ### 8. RDS - Multi-AZ DB
 - **Engine**: MySQL/PostgreSQL
@@ -158,11 +158,11 @@ EOF
 - **Security Group**: Same as EC2
 - **Connect**: Use RDS Endpoint in app code
 
-![RDS](../aws-images/RDS-DB.png)
+![RDS](aws-images/RDS-DB.png)
 
 
 ## 9. Web Page - Testing the Application
 
 Accessed via the ALB DNS name
 
-![Web Page](../aws-images/WebPage.png)
+![Web Page](aws-images/WebPage.png)
