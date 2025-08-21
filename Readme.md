@@ -41,14 +41,23 @@ A secure, highly available, and auto-scaling web application using:
 ### 1. **VPC Setup**
 - Use **default VPC** or create a new one 
 - **VPC Name**: ScalableAppVPC-vpc
+
+![VPC](../aws-images/VPC.png)
+
 - Public Subnets (2) for EC2 + Private Subnets (2) for RDS.
 - Attach Internet Gateway and configure route tables.
+
+![Subnets](../aws-images/Subnets.png)
+
+
 
 ### 2. **Security Groups**
 - **Security Groups Name**: (ALP-SecurityGroups)
 - EC2 SG: Allow HTTP (80), HTTPS (443), SSH (22 from your IP)
 - ALB SG: Allow HTTP/HTTPS from anywhere (0.0.0.0/0)
 - RDS SG: Allow DB ports only from EC2 SG
+
+![Security Groups](../aws-images/SecurityGroup.png)
 
 ### 3. **IAM Role for EC2**
 Attach a role with:
@@ -62,6 +71,8 @@ Attach a role with:
 - AMI: Amazon Linux 2 or Ubuntu
 - Instance Type: `t2.micro`
 - Attach IAM Role
+
+![Launch Template](../aws-images/LuanchTemplate.png)
 
 `user-data`:
 ```bash
@@ -118,6 +129,8 @@ EOF
 - subnets: public subnet-1, public subnet-2 
 - security-groups: ALP-SecurityGroups
 
+![ALB](../aws-images/LoadBalancer.png)
+
 ### 6. Create Auto Scaling Group (ASG)
 - **ASG Name**: (web-ASG)
 - auto-scaling-group-name web-asg 
@@ -126,16 +139,30 @@ EOF
 - vpc-zone-identifier "subnet-1,subnet-2" 
 - Scale-out policy (CPU >80%)
 
+![ASG](../aws-images/AutoScalingGroups.png)
+
 ### 7. CloudWatch Alarm
 - aws cloudwatch put-metric-alarm 
 - alarm name:  SNS Alarm 
 - metric-name CPUUtilization 
 - threshold 80 
 
-### 8. (Optional) RDS - Multi-AZ DB
+![CloudWatch](../aws-images/Cloudwatch.png)
+![Alarms](../aws-images/SNS.png)
+
+### 8. RDS - Multi-AZ DB
 - **Engine**: MySQL/PostgreSQL
 - **Multi-AZ**: Enabled
 - **VPC Name**: ScalableAppVPC-vpc
 - **Public Access**: No
 - **Security Group**: Same as EC2
 - **Connect**: Use RDS Endpoint in app code
+
+![RDS](../aws-images/RDS-DB.png)
+
+
+## 9. Web Page - Testing the Application
+
+Accessed via the ALB DNS name
+
+![Web Page](../aws-images/WebPage.png)
