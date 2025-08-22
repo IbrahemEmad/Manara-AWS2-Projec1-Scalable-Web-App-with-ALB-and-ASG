@@ -161,8 +161,7 @@ EOF
 ![RDS](aws-images/RDS-DB.png)
 
 
-## 9. Web Page - Testing the Application
-
+### 9. Web Page - Testing the Application
 Accessed via the ALB DNS name
 
 ![Web Page](aws-images/WebPage.png)
