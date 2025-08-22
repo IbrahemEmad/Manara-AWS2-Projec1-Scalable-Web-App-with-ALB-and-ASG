@@ -32,7 +32,7 @@ A secure, highly available, and auto-scaling web application using:
 
 ## Architecture Diagram
 
-![Architecture](docs/Diagram.png)
+![Architecture](aws-images/Diagram.png)
 
 ---
 
